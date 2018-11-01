@@ -1,0 +1,15 @@
+[path]
+eval_input_path=../data/gold_standard_link_all.csv
+eval_output_path=../result/gold_python100_result.csv
+model_loc = ../model/cnn/cnn_main_30000_100
+ex_input_path=/home/sooji/Wiki_20180801/data/Wiki_20180801_0.tsv
+ex_output_one =../data/Wiki_20180801_0_one.tsv
+ex_output_all =../data/Wiki_20180801_0_all.tsv
+[parameter]
+isSemeval = TRUE
+isLive = FALSE
+batch_size = 5000
+GPU_DEVICE = '1'
+GPU_FRACTION = 0.5
+threshold = 0.9
+type=CNN

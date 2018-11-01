@@ -1,0 +1,35 @@
+from configparser import ConfigParser
+import datetime
+conf = ConfigParser()
+conf.read("../cnn_py.init")
+isSemeval = conf.get("parameter","isSemeval")
+isLive =conf.get("parameter","isLive")
+if isSemeval=="TRUE" and isLive=="FALSE":
+    input_file = conf.get("path","eval_input_path")
+    output_file = conf.get("path","eval_output_path")
+    model = conf.get("path","model_loc")
+    batch = int(conf.get("parameter","batch_size"))
+    device = conf.get("parameter","GPU_DEVICE")
+    memRatio = float(conf.get("parameter","GPU_FRACTION"))
+    print("=" * 80)
+    print("[START] CNN Python Evaluator : ", datetime.datetime.now())
+    flag = conf.get("parameter","type")
+    import cnn_eval
+    cnn_eval.evaluator(flag,input_file,output_file,batch,model,device,memRatio)
+    print("[END] ", datetime.datetime.now())
+    print("=" * 80)
+if  isSemeval=="FALSE" and isLive=="TRUE":
+    input_file = conf.get("path","ex_input_path")
+    out_one = conf.get("path","ex_output_one")
+    out_all = conf.get("path","ex_output_all")
+    model = conf.get("path","model_loc")
+    threshold = float(conf.get("parameter","threshold"))
+    batch = int(conf.get("parameter","batch_size"))
+    device = conf.get("parameter","GPU_DEVICE")
+    memRatio = float(conf.get("parameter","GPU_FRACTION"))
+    print("="*80)
+    print("[START] CNN Python Extractor : ",datetime.datetime.now())
+    import cnn_extractor
+    cnn_extractor.extractor(flag,input_file,out_one,out_all,batch,model,device,memRatio,threshold)
+    print("[END] ",datetime.datetime.now())
+    print("="*80)
